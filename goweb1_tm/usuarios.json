@@ -1,10 +1,12 @@
 {
-    "id": 1,
-    "edad" : 29,
-	"nombre" : "Sebastian",
-   "apellido" : "Salice",
-    "email" : "sebasalice@sebasalice.com",
-    "fecha_creacion": "05/04/2022",
-	"altura" : 1.75,
-    "activo": true
+    
+        "id": 1,
+        "edad" : 29,
+        "nombre" : "Sebastian",
+        "apellido" : "Salice",
+        "email" : "sebasalice@sebasalice.com",
+        "fecha_creacion": "05/04/2022",
+        "altura" : 1.75,
+        "activo": true
+    
 }

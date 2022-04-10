@@ -1,5 +1,4 @@
-{
-    
+{       
         "id": 1,
         "edad" : 29,
         "nombre" : "Sebastian",
@@ -8,5 +7,6 @@
         "fecha_creacion": "05/04/2022",
         "altura" : 1.75,
         "activo": true
-    
+        
+        
 }

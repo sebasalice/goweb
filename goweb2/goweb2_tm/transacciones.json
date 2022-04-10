@@ -1,0 +1,18 @@
+[ { 
+        "id":"1", 
+        "codigo_transaccion":"RHWIJDOAE",
+        "moneda":"ARS",
+        "monto":"432.56",
+        "emisor":"MELI",
+        "receptor":"PAOE",
+        "fecha":"08/04/2022"}
+    ,
+       { "id":"2", 
+        "codigo_transaccion":"RHWIJDOAE",
+        "moneda":"ARS",
+        "monto":"432.56",
+        "emisor":"MELI",
+        "receptor":"PAOE",
+        "fecha":"08/04/2022"
+
+ }]

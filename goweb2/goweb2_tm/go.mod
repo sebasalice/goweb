@@ -1,4 +1,4 @@
-module sebasalice/goweb
+module sebasalice/goweb/goweb2/goweb2_tm
 
 go 1.18
 

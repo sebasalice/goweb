@@ -1,4 +1,4 @@
-module sebasalice/goweb/goweb2/goweb2_tt
+module github.com/ignaciofalco/goweb-c2-tm/01-post
 
 go 1.18
 

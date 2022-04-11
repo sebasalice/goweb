@@ -22,16 +22,17 @@ import (
 )
 
 type transacciones struct {
-	Id                 int `json:"id,string"`
-	Codigo_transaccion string
-	Moneda             string
-	Monto              float64 `json:"monto,string"`
-	Emisor             string
-	Receptor           string
-	Fecha              string
+	Id                 int     `json:"id"`
+	Codigo_transaccion string  `json:"codigo_transaccion"`
+	Moneda             string  `json:"moneda"`
+	Monto              float64 `json:"monto"`
+	Emisor             string  `json:"emisor"`
+	Receptor           string  `json:"receptor"`
+	Fecha              string  `json:"fecha"`
 }
 
 var trans []transacciones
+var lastID int
 
 func GetAll(c *gin.Context) {
 	var trans []transacciones
@@ -81,9 +82,67 @@ func QueryParam(c *gin.Context) {
 	}
 
 }
+func Guardar() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var req transacciones
+		token := c.GetHeader("token")
+		if token != "123456" {
+			c.JSON(401, gin.H{
+				"error": "token inválido",
+			})
+			return
+		}
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		lastID++
+		req.Id = lastID
+		if req.Codigo_transaccion == "" {
+			c.JSON(400, gin.H{
+				"error": "Codigo_transaccion es un campo requerido",
+			})
+			return
+		}
+		if req.Moneda == "" {
+			c.JSON(400, gin.H{
+				"error": "Moneda es un campo requerido",
+			})
+			return
+		}
+		if req.Monto == 0 {
+			c.JSON(400, gin.H{
+				"error": "Monto es un campo requerido",
+			})
+			return
+		}
+		if req.Emisor == "" {
+			c.JSON(400, gin.H{
+				"error": "Emisor es un campo requerido",
+			})
+			return
+		}
+		if req.Receptor == "" {
+			c.JSON(400, gin.H{
+				"error": "Receptor es un campo requerido",
+			})
+			return
+		}
+		if req.Fecha == "" {
+			c.JSON(400, gin.H{
+				"error": "Fecha es un campo requerido",
+			})
+			return
+		}
+		c.JSON(200, req)
+
+	}
+}
 
 func main() {
-	//gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/hola", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -93,6 +152,15 @@ func main() {
 	router.GET("/transacciones", GetAll)
 	router.GET("/transacciones/:id", transaccionesById)
 	router.GET("/transaccionesQuery", QueryParam)
+	pr := router.Group("/productos")
+	pr.POST("/", Guardar())
 	router.Run()
 
 }
+
+/*1. Crea un endpoint mediante POST el cual reciba la entidad.
+2. Se debe tener un array de la entidad en memoria (a nivel global), en el cual se
+deberán ir guardando todas las peticiones que se vayan realizando.
+3. Al momento de realizar la petición se debe generar el ID. Para generar el ID se debe
+buscar el ID del último registro generado, incrementarlo en 1 y asignarlo a nuestro
+nuevo registro (sin tener una variable de último ID a nivel global).*/
